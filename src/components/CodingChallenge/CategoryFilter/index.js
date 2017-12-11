@@ -50,16 +50,16 @@ class CategoryFilter extends Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, selectedCategory, categories } = this.props;
         return (
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="categories">Category</InputLabel>
                 <Select
-                    value={this.props.selectedCategory}
+                    value={selectedCategory}
                     onChange={this.onSelect}
                     input={<Input name="categories" id="categories" />}
                 >
-                    {this.renderCategories(this.props.categories, this.props.selectedCategory)}
+                    {this.renderCategories(categories, selectedCategory)}
                 </Select>
             </FormControl>
         )

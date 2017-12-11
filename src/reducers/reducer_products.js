@@ -15,7 +15,8 @@ const initialState = {
     currentPageResponse: [],
     currentProducts: [],
     nextPage: '',
-    categories: []
+    categories: [],
+    loading: false,
 }
 
 export default (state = initialState, action) => {
@@ -24,13 +25,15 @@ export default (state = initialState, action) => {
 
             return {
                 ...state,
-                currentPageResponse: action.payload
+                currentPageResponse: action.payload,
+                loading: false
             }
         case FETCH_PRODUCTS_REQUEST:
 
             return {
                 ...state,
-                productCategory: action.productCategory
+                productCategory: action.productCategory,
+                loading: true
             }
         case SET_CURRENT_PRODUCTS_REQUEST:
 

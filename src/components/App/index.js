@@ -15,7 +15,7 @@ const theme = createMuiTheme({
         type: 'dark',
         primary: {
             ...red,
-            A700: '#D50000',
+            A800: '#C62828',
         },
         secondary: {
             ...grey,
@@ -39,8 +39,8 @@ const theme = createMuiTheme({
 const App = () => (
     <MuiThemeProvider theme={theme}>
         <div>
-            <Navigation theme={theme} />
-            <Header theme={theme} />
+            <Navigation />
+            <Header />
 
             <main>
                 <Route exact path="/" component={Home} />

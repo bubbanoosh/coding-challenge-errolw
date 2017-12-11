@@ -16,6 +16,7 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
+import { CircularProgress } from 'material-ui/Progress';
 
 import ProductList from './ProductList'
 import CategoryFilter from './CategoryFilter'
@@ -46,67 +47,72 @@ class CodingChallenge extends Component {
         this.props.fetchProducts();
     }
 
-    onCalculateAverageWeightClick() {
+    onCalculateAverageWeightClick = () => {
         this.props.calculateAverage(this.props.currentProducts);
     }
 
-
     render() {
-        const { classes } = this.props;
+        const { classes } = this.props
+        const {
+            averageCubicWeight, currentPageResponse, productCategory, currentProducts, categories,
+            setCategoryList, setCurrentCategoryAndProducts, loading
+        } = this.props
         return (
-            <Grid container spacing="0" className={classes.root}>
-                {this.props.currentPageResponse.length > 0 && <Grid item xs={12}>
-                    <Grid container spacing="0" className={classes.containerControl}>
-                        <form autoComplete="off">
-                            <CategoryFilter
-                                currentPageResponse={this.props.currentPageResponse}
-                                selectedCategory={this.props.productCategory}
-                                setCategoryList={this.props.setCategoryList}
-                                categories={this.props.categories}
-                                setCurrentCategoryAndProducts={this.props.setCurrentCategoryAndProducts}
-                                currentProducts={this.props.currentProducts}
-                            />
-                        </form>
-                    </Grid>
-                </Grid>}
+            <div>
+                {loading && <CircularProgress className={classes.progress} size={50} />}
 
-
-                <Grid item xs={12}>
-                    <Grid container>
-                        <Grid item xs={12} sm={6}>
-                            <Button
-                                raised 
-                                color="primary"
-                                className={classes.button}
-                                onClick={this.onCalculateAverageWeightClick.bind(this)}>
-                                Calculate Avg Cubic Weight
+                <Grid container spacing="0" className={classes.root}>
+                    {currentPageResponse.length > 0 && <Grid item xs={12}>
+                        <Grid container spacing="0" className={classes.containerControl}>
+                            <form autoComplete="off">
+                                <CategoryFilter
+                                    currentPageResponse={currentPageResponse}
+                                    selectedCategory={productCategory}
+                                    setCategoryList={setCategoryList}
+                                    categories={categories}
+                                    setCurrentCategoryAndProducts={setCurrentCategoryAndProducts}
+                                    currentProducts={currentProducts}
+                                />
+                            </form>
+                        </Grid>
+                    </Grid>}
+                    <Grid item xs={12}>
+                        <Grid container>
+                            <Grid item xs={12} sm={6}>
+                                <Button
+                                    raised
+                                    color="primary"
+                                    className={classes.button}
+                                    onClick={this.onCalculateAverageWeightClick}>
+                                    Calculate Avg Cubic Weight
                             </Button>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Chip
-                                avatar={<Avatar src={WeightIcon} />}
-                                label={
-                                    <Typography type="headline">Average Weight: {this.props.averageCubicWeight}</Typography>
-                                }
-                                className={classes.chip}
-                            />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Chip
+                                    avatar={<Avatar src={WeightIcon} />}
+                                    label={
+                                        <Typography type="headline">Average Weight: {averageCubicWeight}</Typography>
+                                    }
+                                    className={classes.chip}
+                                />
+                            </Grid>
                         </Grid>
                     </Grid>
+                    <Grid item xs={12}>
+                        <Card className={classes.card}>
+                            <CardContent>
+                                {currentPageResponse.length > 0 &&
+                                    <ProductList
+                                        currentPageResponse={currentPageResponse}
+                                        productCategory={productCategory}
+                                        setCurrentCategoryAndProducts={setCurrentCategoryAndProducts}
+                                        currentProducts={currentProducts} />
+                                }
+                            </CardContent>
+                        </Card>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <Card className={classes.card}>
-                        <CardContent>
-                            {this.props.currentPageResponse.length > 0 &&
-                                <ProductList
-                                    currentPageResponse={this.props.currentPageResponse}
-                                    productCategory={this.props.productCategory}
-                                    setCurrentCategoryAndProducts={this.props.setCurrentCategoryAndProducts}
-                                    currentProducts={this.props.currentProducts} />
-                            }
-                        </CardContent>
-                    </Card>
-                </Grid>
-            </Grid>
+            </div>
         );
     }
 }
@@ -120,7 +126,8 @@ const mapStateToProps = state => ({
     currentPageResponse: state.products.currentPageResponse,
     productCategory: state.products.productCategory,
     currentProducts: state.products.currentProducts,
-    categories: state.products.categories
+    categories: state.products.categories,
+    loading: state.products.loading
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

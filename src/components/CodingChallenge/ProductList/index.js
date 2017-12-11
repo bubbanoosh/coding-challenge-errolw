@@ -52,15 +52,16 @@ class ProductList extends Component {
     }
 
     render() {
+        const { productCategory, currentProducts } = this.props
         return (
             <div className={classes.container}>
                 <GridList className={classes.gridList}>
                     <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
                         <Subheader component="div">
-                        <Typography type="headline" gutterBottom="true">Products: {this.props.productCategory}</Typography>
+                        <Typography type="headline" gutterBottom="true">Products: {productCategory}</Typography>
                         </Subheader>
                     </GridListTile>
-                    {this.renderListItem(this.props.currentProducts)}
+                    {this.renderListItem(currentProducts)}
                 </GridList>
             </div>)
     }
