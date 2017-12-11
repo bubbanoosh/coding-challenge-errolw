@@ -6,14 +6,39 @@ import {
     setCurrentCategoryAndProducts,
     setCategoryList,
     calculateAverage
-} from '../../modules/products'
+} from '../../actions'
+
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import Grid from 'material-ui/Grid';
+import Card, { CardContent } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
+import Chip from 'material-ui/Chip';
+import Avatar from 'material-ui/Avatar';
 
 import ProductList from './ProductList'
 import CategoryFilter from './CategoryFilter'
+import WeightIcon from '../../assets/weight.png'
 
-const styles = {
-    extraMarginBottom: { marginBottom: '1rem' }
-}
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+        padding: '1.5rem',
+    },
+    containerControl: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        overflow: 'hidden',
+        background: theme.palette.background.paper,
+    },
+    chip: {
+        margin: theme.spacing.unit * 2,
+    },
+    button: {
+        margin: '1rem',
+    },
+});
 
 class CodingChallenge extends Component {
 
@@ -27,42 +52,50 @@ class CodingChallenge extends Component {
 
 
     render() {
+        const { classes } = this.props;
         return (
-            <div className="container">
-                {this.props.currentPageResponse.length > 0 && <div className="row">
-                    <div className="col-md-12" style={ styles.extraMarginBottom }>
-                        <CategoryFilter
-                            currentPageResponse={this.props.currentPageResponse}
-                            selectedCategory={this.props.productCategory}
-                            setCategoryList={this.props.setCategoryList}
-                            categories={this.props.categories}
-                            setCurrentCategoryAndProducts={this.props.setCurrentCategoryAndProducts}
-                            currentProducts={this.props.currentProducts}
-                        />
-                    </div>
-                </div>}
-                <div className="row">
-                    <div className="col-md-12">
-                        <h1>Products: {this.props.productCategory}</h1>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-12" style={ styles.extraMarginBottom }>
-                        <div className="col-md-6 text-left">
-                            <button
-                                className="btn btn-success pull-md-left"
+            <Grid container spacing="0" className={classes.root}>
+                {this.props.currentPageResponse.length > 0 && <Grid item xs={12}>
+                    <Grid container spacing="0" className={classes.containerControl}>
+                        <form autoComplete="off">
+                            <CategoryFilter
+                                currentPageResponse={this.props.currentPageResponse}
+                                selectedCategory={this.props.productCategory}
+                                setCategoryList={this.props.setCategoryList}
+                                categories={this.props.categories}
+                                setCurrentCategoryAndProducts={this.props.setCurrentCategoryAndProducts}
+                                currentProducts={this.props.currentProducts}
+                            />
+                        </form>
+                    </Grid>
+                </Grid>}
+
+
+                <Grid item xs={12}>
+                    <Grid container>
+                        <Grid item xs={12} sm={6}>
+                            <Button
+                                raised 
+                                color="primary"
+                                className={classes.button}
                                 onClick={this.onCalculateAverageWeightClick.bind(this)}>
                                 Calculate Avg Cubic Weight
-                            </button>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="pull-xs-left"><h3>Average Weight: <span className="label label-default">{this.props.averageCubicWeight}</span></h3></div>
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="card sb-card col-md-12">
-                        <div className="card-body">
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Chip
+                                avatar={<Avatar src={WeightIcon} />}
+                                label={
+                                    <Typography type="headline">Average Weight: {this.props.averageCubicWeight}</Typography>
+                                }
+                                className={classes.chip}
+                            />
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                    <Card className={classes.card}>
+                        <CardContent>
                             {this.props.currentPageResponse.length > 0 &&
                                 <ProductList
                                     currentPageResponse={this.props.currentPageResponse}
@@ -70,13 +103,17 @@ class CodingChallenge extends Component {
                                     setCurrentCategoryAndProducts={this.props.setCurrentCategoryAndProducts}
                                     currentProducts={this.props.currentProducts} />
                             }
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </CardContent>
+                    </Card>
+                </Grid>
+            </Grid>
         );
     }
 }
+
+CodingChallenge.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = state => ({
     averageCubicWeight: state.products.averageCubicWeight,
@@ -93,7 +130,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     calculateAverage
 }, dispatch)
 
-export default connect(
+export default withStyles(styles)(connect(
     mapStateToProps,
     mapDispatchToProps
-)(CodingChallenge)
+)(CodingChallenge))

@@ -1,0 +1,64 @@
+>heroku -v
+>heroku login
+>heroku apps:create errol-codingchallenge --buildpack https://github.com/mars/create-react-app-buildpack.git
+
+>git add .
+>git commit -m "Commit message"
+
+>git remote rm heroku
+>git remote add heroku https://git.heroku.com/errol-codingchallenge.git
+
+================================================
+create-react-app $APP_NAME
+cd $APP_NAME
+git init
+yarn install
+git add yarn.lock
+git commit -m "Yarn lock"
+heroku create $APP_NAME --buildpack https://github.com/mars/create-react-app-buildpack.git
+git add .
+git commit -m "Start with create-react-app"
+git push heroku master
+heroku open
+
+
+
+
+
+
+================================================
+
+Heroku buildpacks info:
+>heroku buildpacks:clear
+>heroku buildpacks:set https://github.com/mars/create-react-app-buildpack.git
+
+================================================
+https://dashboard.heroku.com/apps/errol-code-challenge/deploy/heroku-git
+
+Install the Heroku CLI
+
+Download and install the Heroku CLI.
+
+If you haven't already, log in to your Heroku account and follow the prompts to create a new SSH public key.
+
+$ heroku login
+Create a new Git repository
+
+Initialize a git repository in a new or existing directory
+
+$ cd my-project/
+$ git init
+$ heroku git:remote -a errol-code-challenge
+Deploy your application
+
+Commit your code to the repository and deploy it to Heroku using Git.
+
+$ git add .
+$ git commit -am "make it better"
+$ git push heroku master
+Existing Git repository
+
+For existing repositories, simply add the heroku remote
+
+$ heroku git:remote -a errol-code-challenge
+
