@@ -40,14 +40,13 @@ const Home = (props) => {
                 <p>http://wp8m3he1wt.s3-website-ap-southeast-2.amazonaws.com/api/products/1</p>
 
                 <Typography type="display1" gutterBottom="true" color="secondary">Cubic Weight Example</Typography>
-                
+
                 <p>A parcel measuring 40cm long (0.4m) x 20cm high (0.2m) x 30cm wide (0.3m) is equal to 0.024 cubic metres.
         Multiplied by the conversion factor of 250 gives a cubic weight of 6kg.</p>
 
-                <div>0.4m x 0.2m x 0.3m = 0.024m3<br />
-                    0.024m3 x 250 = 6kg<br />
-                    Assume that</div>
-
+                <p>0.4m x 0.2m x 0.3m = 0.024m3<br />
+                    0.024m3 x 250 = 6kg</p>
+                <Typography type="display1" gutterBottom="true" color="secondary">Assume that</Typography>
                 <ul>
                     <li>All dimensions are provided in centimetres</li>
                     <li>All weights are provided in grams</li>
