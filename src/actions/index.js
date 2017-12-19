@@ -41,7 +41,7 @@ export const fetchProducts = (firstPage = '/api/products/1') => {
 
             const results = responses.map(response => response.data.objects);
             const allResults = [].concat(...results);
-
+            //console.log("allResults.category:", allResults)
             dispatch({
                 type: FETCH_PRODUCTS_SUCCESS,
                 payload: allResults
