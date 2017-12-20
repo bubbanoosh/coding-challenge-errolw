@@ -59,7 +59,7 @@ class CodingChallenge extends Component {
         } = this.props
         return (
             <div>
-                {<CircularProgress className={classes.progress} size={50} />}
+                {loader && <CircularProgress className={classes.progress} size={50} />}
 
                 <Grid container spacing="0" className={classes.root}>
                     {currentPageResponse.length > 0 && <Grid item xs={12}>
