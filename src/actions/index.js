@@ -1,22 +1,20 @@
 import AppConfig from '../appConfig/appConfig'
 import axios from 'axios'
-
-export const FETCH_PRODUCTS = 'products/FETCH_PRODUCTS'
-export const FETCH_PRODUCTS_REQUEST = 'products/FETCH_PRODUCTS_REQUEST'
-export const FETCH_PRODUCTS_SUCCESS = 'products/FETCH_PRODUCTS_SUCCESS'
-export const FILTER_PRODUCT = 'products/FILTER_PRODUCT'
-export const SET_CURRENT_PRODUCTS = 'products/SET_CURRENT_PRODUCTS'
-export const SET_CURRENT_PRODUCTS_REQUEST = 'products/SET_CURRENT_PRODUCTS_REQUEST'
-export const SET_CATEGORIES = 'products/SET_CATEGORIES'
-export const CALCULATE_AVERAGE_WEIGHT = 'products/CALCULATE_AVERAGE_WEIGHT'
-export const CALCULATE_AVERAGE_WEIGHT_REQUESTED = 'products/CALCULATE_AVERAGE_WEIGHT_REQUESTED'
+import * as types from './actionTypes'
 
 export const fetchProducts = (firstPage = '/api/products/1') => {
-    return dispatch => {
+    (dispatch) => {
         dispatch({
-            type: FETCH_PRODUCTS_REQUEST,
+            type: types.FETCH_PRODUCTS_REQUEST,
             productCategory: 'Air Conditioners'
         })
+    }
+
+    return dispatch => {
+        // dispatch({
+        //     type: types.FETCH_PRODUCTS_REQUEST,
+        //     productCategory: 'Air Conditioners'
+        // })
 
         get(axios, firstPage, dispatch)
     }
@@ -43,7 +41,7 @@ export const fetchProducts = (firstPage = '/api/products/1') => {
             const allResults = [].concat(...results);
             //console.log("allResults.category:", allResults)
             dispatch({
-                type: FETCH_PRODUCTS_SUCCESS,
+                type: types.FETCH_PRODUCTS_SUCCESS,
                 payload: allResults
             })
         });
@@ -53,14 +51,14 @@ export const fetchProducts = (firstPage = '/api/products/1') => {
 export const setCurrentCategoryAndProducts = (products, productCategory) => {
     return dispatch => {
         dispatch({
-            type: SET_CURRENT_PRODUCTS_REQUEST
+            type: types.SET_CURRENT_PRODUCTS_REQUEST
         })
 
         dispatch({
-            type: FILTER_PRODUCT,
+            type: types.FILTER_PRODUCT,
             payload: productCategory
         })
-
+        //console.log('ppppppwproducts', products)
         getCurrentProducts(products, productCategory, dispatch)
     }
 
@@ -78,7 +76,7 @@ export const setCurrentCategoryAndProducts = (products, productCategory) => {
         }
 
         dispatch({
-            type: SET_CURRENT_PRODUCTS,
+            type: types.SET_CURRENT_PRODUCTS,
             payload: currentProducts
         })
     }
@@ -89,7 +87,7 @@ export const setCategoryList = (categories) => {
 
     return dispatch => {
         dispatch({
-            type: SET_CATEGORIES,
+            type: types.SET_CATEGORIES,
             payload: categories
         })
     }
@@ -99,7 +97,7 @@ export const calculateAverage = (currentProducts) => {
 
     return dispatch => {
         dispatch({
-            type: CALCULATE_AVERAGE_WEIGHT_REQUESTED
+            type: types.CALCULATE_AVERAGE_WEIGHT_REQUESTED
         })
 
         getAverage(currentProducts, dispatch)
@@ -115,7 +113,7 @@ export const calculateAverage = (currentProducts) => {
             }
         }
         dispatch({
-            type: CALCULATE_AVERAGE_WEIGHT,
+            type: types.CALCULATE_AVERAGE_WEIGHT,
             payload: avg
         })
 

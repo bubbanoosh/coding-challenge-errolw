@@ -1,5 +1,5 @@
 {
-  "name": "WB-kogan-coding-challenge",
+  "name": "coding-challenge",
   "version": "0.1.0",
   "author": "Errol Willenberg",
   "private": true,
@@ -42,6 +42,7 @@
     "build": "webpack",
     "dev-server": "webpack-dev-server",
     "test": "jest",
+    "test:watch": "yarn test -- --watch",
     "eject": "react-scripts eject"
   },
   "devDependencies": {

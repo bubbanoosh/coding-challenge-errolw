@@ -1,13 +1,4 @@
-import {
-    FETCH_PRODUCTS_SUCCESS,
-    FETCH_PRODUCTS_REQUEST,
-    SET_CURRENT_PRODUCTS_REQUEST,
-    SET_CURRENT_PRODUCTS,
-    SET_CATEGORIES,
-    FILTER_PRODUCT,
-    CALCULATE_AVERAGE_WEIGHT_REQUESTED,
-    CALCULATE_AVERAGE_WEIGHT
-} from '../actions'
+import * as types from '../actions/actionTypes'
 
 const initialState = {
     averageCubicWeight: 0,
@@ -21,53 +12,53 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_PRODUCTS_SUCCESS:
+        case types.FETCH_PRODUCTS_SUCCESS:
 
             return {
                 ...state,
                 currentPageResponse: action.payload,
                 loading: false
             }
-        case FETCH_PRODUCTS_REQUEST:
+        case types.FETCH_PRODUCTS_REQUEST:
 
             return {
                 ...state,
                 productCategory: action.productCategory,
                 loading: true
             }
-        case SET_CURRENT_PRODUCTS_REQUEST:
+        case types.SET_CURRENT_PRODUCTS_REQUEST:
 
             return {
                 ...state,
                 currentProducts: [],
                 averageCubicWeight: 0
             }
-        case SET_CURRENT_PRODUCTS:
+        case types.SET_CURRENT_PRODUCTS:
 
             return {
                 ...state,
                 currentProducts: action.payload
             }
-        case SET_CATEGORIES:
+        case types.SET_CATEGORIES:
 
             return {
                 ...state,
                 categories: action.payload
             }
-        case FILTER_PRODUCT:
+        case types.FILTER_PRODUCT:
 
             return {
                 ...state,
                 productCategory: action.payload
             }
 
-        case CALCULATE_AVERAGE_WEIGHT_REQUESTED:
+        case types.CALCULATE_AVERAGE_WEIGHT_REQUESTED:
             return {
                 ...state,
                 averageCubicWeight: 0
             }
 
-        case CALCULATE_AVERAGE_WEIGHT:
+        case types.CALCULATE_AVERAGE_WEIGHT:
             return {
                 ...state,
                 averageCubicWeight: action.payload
